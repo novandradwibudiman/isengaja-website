@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IsengAja.com - Buang Gabut Anti Galau!</title>
+    <!-- Tailwind CSS CDN for easy styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for Inter font and general body */
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Enhanced background with subtle pattern - Dominant Blue/White from Layla UI */
+            /* Adjusted to be lighter and more subtle */
+            background: linear-gradient(to right bottom, #E0F7FA, #BBDEFB); /* Light Cyan to Light Blue */
+            /* Subtle anime-inspired geometric pattern - adjusted for blue/white */
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23B3E5FC' fill-opacity='0.2' fill-rule='evenodd'%3E%3Cpath d='M0 0h30v30H0V0zm30 30h30v30H30V30z'/%3E%3C/g%3E%3C/svg%3E"), /* Light Blue 100 */
+                            url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2381D4FA' fill-opacity='0.25' fill-rule='evenodd'%3E%3Ccircle cx='20' cy='20' r='10'/%3E%3C/g%3E%3C/svg%3E"); /* Light Blue 300 */
+            background-repeat: repeat, repeat; /* Repeat both patterns */
+            background-position: 0 0, 10px 10px; /* Offset the second pattern slightly */
+            color: #4A4A4A; /* Darker gray for general text */
+            transition: background-color 0.5s ease; /* Smooth transition for background change */
+        }
+        .card {
+            background-color: #ffffff; /* Keep white */
+            border-radius: 1.5rem; /* Even more rounded corners, matching Layla UI */
+            box-shadow: 0 20px 30px -8px rgba(0, 0, 0, 0.15), 0 8px 12px -4px rgba(0, 0, 0, 0.08); /* Deeper, softer shadow from Layla UI */
+            /* Responsive padding for cards */
+            padding: 1.5rem; /* Default for small screens */
+            padding-left: 0.8rem; /* Adjusted for left border */
+            padding-right: 1.5rem;
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2.5rem; /* Increased margin */
+            border-left: 0.6rem solid; /* Accent border on the left */
+            border-image: linear-gradient(to bottom, #42A5F5, #1976D2) 1; /* Blue 400 to Blue 700, matching Layla UI blues */
+            overflow: hidden; /* Ensure content stays within bounds */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth hover for cards */
+            position: relative; /* For potential future effects */
+            z-index: 1; /* Ensure card is above background pattern if any */
+        }
+        @media (min-width: 640px) { /* Small screens (sm) and up */
+            .card {
+                padding: 2.5rem; /* Larger padding for larger screens */
+                padding-left: 0.6rem; /* Adjusted for left border */
+            }
+        }
+        .card:hover {
+            transform: translateY(-8px); /* More pronounced lift on hover */
+            box-shadow: 0 25px 45px -10px rgba(0, 0, 0, 0.25), 0 10px 15px -5px rgba(0, 0, 0, 0.12); /* Deeper shadow on hover */
+        }
+        .btn {
+            padding: 0.9rem 1.8rem; /* Slightly larger padding */
+            border-radius: 0.9rem; /* More rounded buttons, matching Layla UI */
+            font-weight: 800; /* Extra bolder text */
+            transition: all 0.3s ease-in-out; /* Smoother transitions */
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem; /* Slightly more gap */
+            position: relative; /* For ripple effect */
+            overflow: hidden; /* For ripple effect */
+            box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.15), 0 3px 6px -2px rgba(0, 0, 0, 0.08); /* Button shadow */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Subtle text shadow for buttons */
+        }
+        .btn-primary {
+            background-image: linear-gradient(to right, #42A5F5, #1976D2); /* Blue 400 to Blue 700, matching Layla UI blues */
+            color: white;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-image: linear-gradient(to right, #1976D2, #0D47A1); /* Darker blue gradient on hover */
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 5px 8px -3px rgba(0, 0, 0, 0.1);
+        }
+        .btn-secondary {
+            background-image: linear-gradient(to right, #81D4FA, #4FC3F7); /* Light Blue 300 to Light Blue 400, matching Layla UI blues */
+            color: white;
+            border: none;
+        }
+        .btn-secondary:hover {
+            background-image: linear-gradient(to right, #4FC3F7, #29B6F6); /* Darker blue gradient on hover */
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 5px 8px -3px rgba(0, 0, 0, 0.1);
+        }
+        .btn-danger {
+            background-image: linear-gradient(to right, #EF5350, #D32F2F); /* Red 400 to Red 700 - keeping red for danger */
+            color: white;
+            border: none;
+        }
+        .btn-danger:hover {
+            background-image: linear-gradient(to right, #D32F2F, #C62828); /* Darker red gradient on hover */
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 5px 8px -3px rgba(0, 0, 0, 0.1);
+        }
+        .flex-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .text-gradient {
+            background-image: linear-gradient(to right, #2196F3, #1976D2); /* Blue 500 to Blue 700, matching Layla UI blues */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header-title {
+            /* Responsive font size for header title */
+            font-size: 3rem; /* Default for small screens */
+            line-height: 1;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.15); /* More pronounced text shadow */
+        }
+        @media (min-width: 640px) { /* Small screens (sm) and up */
+            .header-title {
+                font-size: 4rem;
+            }
+        }
+        @media (min-width: 768px) { /* Medium screens (md) and up */
+            .header-title {
+                font-size: 5rem;
+            }
+        }
+        .header-subtitle {
+            font-size: 1.25rem; /* Default for small screens */
+            color: #616161; /* Darker gray */
+            font-weight: 600;
+        }
+        @media (min-width: 640px) { /* Small screens (sm) and up */
+            .header-subtitle {
+                font-size: 1.75rem; /* Larger subtitle for larger screens */
+            }
+        }
+        /* Style for creator name */
+        .creator-name {
+            font-size: 1rem; /* Default for small screens */
+            color: #757575; /* Slightly lighter gray */
+            font-weight: 500;
+            margin-top: 0.5rem; /* Spacing from subtitle */
+        }
+        @media (min-width: 640px) { /* Small screens (sm) and up */
+            .creator-name {
+                font-size: 1.25rem; /* Larger font for creator name */
+            }
+        }
+
+        /* Custom Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Darker overlay */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 2rem; /* Default padding for small screens */
+            border-radius: 2rem; /* More rounded, matching Layla UI style */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); /* Deeper shadow */
+            text-align: center;
+            max-width: 90%; /* Responsive max-width */
+            width: 100%; /* Ensure it takes full width on small screens up to max-width */
+            transform: translateY(-50px) scale(0.9); /* More dynamic entry */
+            transition: transform 0.4s ease;
+        }
+        @media (min-width: 640px) { /* Small screens (sm) and up */
+            .modal-content {
+                padding: 3rem; /* Larger padding for larger screens */
+                max-width: 500px; /* Specific max-width for larger screens */
+            }
+        }
+        .modal-overlay.show .modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        /* Ripple effect for buttons */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.9); /* Even brighter ripple */
+            animation: ripple-animation 0.7s linear forwards; /* Slightly longer animation */
+            transform: scale(0);
+            pointer-events: none;
+        }
+
+        @keyframes ripple-animation {
+            from {
+                transform: scale(0);
+                opacity: 1;
+            }
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        /* Tailwind's bounce animation for panic button */
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px); /* More pronounced bounce */
+            }
+        }
+        .animate-bounce {
+            animation: bounce 0.6s ease-in-out; /* Slightly longer bounce */
+        }
+
+        /* Loading spinner */
+        .loader {
+            border: 4px solid #f3f3f3; /* Light grey */
+            border-top: 4px solid #2196F3; /* Blue 500, matching primary color */
+            border-radius: 50%;
+            width: 28px; /* Slightly larger loader */
+            height: 28px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 0.7rem; /* More margin */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Meme Image Styling (now hidden) */
+        #memeImage {
+            display: none; /* Hide the image element as we are generating text memes */
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.75rem; /* Rounded corners for image */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for image */
+            margin-top: 1rem; /* Space below button */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #memeCaption {
+            font-size: 1.25rem; /* Default for small screens */
+            font-weight: 700; /* Bolder font */
+            color: #333; /* Darker text */
+            margin-top: 1.5rem; /* More space above caption */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Subtle text shadow */
+        }
+        @media (min-width: 640px) { /* Small screens (sm) and up */
+            #memeCaption {
+                font-size: 1.5rem; /* Larger font for larger screens */
+            }
+        }
+
+        /* Input field styling */
+        input[type="text"] {
+            width: 100%;
+            padding: 0.75rem; /* Adjusted padding for better mobile touch */
+            border-radius: 0.5rem; /* Slightly less rounded for inputs, matching Layla UI */
+            border: 1px solid #D1D5DB; /* Gray 300 */
+            transition: all 0.2s ease-in-out;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #4C51BF; /* Indigo 700, matching Layla UI accent */
+            box-shadow: 0 0 0 3px rgba(76, 81, 191, 0.2); /* Indigo 700 with transparency */
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center py-10 px-4 sm:px-6 lg:px-8">
+
+    <!-- Header Section (Conceptual Hero Section) -->
+    <header class="w-full max-w-4xl text-center mb-12 py-8 px-6 rounded-3xl
+                   bg-gradient-to-r from-[#42A5F5] to-[#1976D2] shadow-xl
+                   transform -rotate-1 skew-y-1 scale-105
+                   hover:transform-none transition-all duration-500 ease-in-out">
+        <div class="hero-content">
+            <h1 class="header-title font-extrabold text-white">IsengAja.com</h1>
+            <p class="header-subtitle font-medium text-blue-100">Tempatnya Buang Gabut Anti Galau!</p>
+            <!-- Sticker Image placed inside hero-content -->
+            <img src="stiker-aja.png" alt="Stiker Iseng Aja" class="mx-auto mt-6 max-w-[250px] w-full h-auto rounded-xl shadow-lg">
+            <p class="creator-name text-blue-200 mt-6">Dibuat oleh: Andra Anak Kucay</p>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="w-full max-w-5xl">
+
+        <!-- Section: Generator Random Ajaib -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Generator Random Ajaib</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Random Fact Generator -->
+                <div class="card">
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-4">Fakta-Fakta Receh Bikin Ngakak</h3>
+                    <p id="factDisplay" class="text-lg text-gray-600 mb-6 italic">Klik tombol di bawah buat fakta yang bikin kamu mikir... 'hah?'</p>
+                    <button id="generateFactBtn" class="btn btn-primary">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4.636 17.364l-.707.707M3 12H2m8.663-11h4.673L12 3v1m6.364-1.636l-.707-.707M21 12h-1M4.636 6.636l-.707-.707M3 12H2"></path></svg>
+                        Gas Fakta Absurd!
+                    </button>
+                    <span id="factLoader" class="loader hidden"></span>
+                </div>
+
+                <!-- Random Word Generator -->
+                <div class="card">
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-4">Kata-Kata Gabut Maksimal</h3>
+                    <p id="wordDisplay" class="text-lg text-gray-600 mb-6 italic">Hasilkan kata-kata yang cuma anak gabut doang yang ngerti!</p>
+                    <button id="generateWordBtn" class="btn btn-primary">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                        Spill Kata Gabut!
+                    </button>
+                    <span id="wordLoader" class="loader hidden"></span>
+                </div>
+
+                <!-- Random Activity Generator -->
+                <div class="card">
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-4">Ide Ngapain Aja Biar Nggak Gabut</h3>
+                    <p id="activityDisplay" class="text-lg text-gray-600 mb-6 italic">Bingung mau ngapain? Ini dia ide receh buat kamu!</p>
+                    <button id="generateActivityBtn" class="btn btn-primary">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path></svg>
+                        Cari Ide Receh!
+                    </button>
+                    <span id="activityLoader" class="loader hidden"></span>
+                </div>
+
+                <!-- Generator Ide Gabut Canggih -->
+                <div class="card">
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-4">Ide Gabut Canggih (Bikin Ngakak!)</h3>
+                    <p id="llmIdeaDisplay" class="text-lg text-gray-600 mb-6 italic">Dapet ide gabut super random dari sistem yang bikin kamu auto ngakak!</p>
+                    <button id="generateLlmIdeaBtn" class="btn btn-primary">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                        Sistem Kasih Ide Ngakak!
+                        <span id="llmIdeaLoader" class="loader hidden"></span>
+                    </button>
+                </div>
+
+                <!-- Generator Pantun Receh -->
+                <div class="card">
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-4">Pantun Receh (Bikin Senyum Kecut)</h3>
+                    <p id="pantunDisplay" class="text-lg text-gray-600 mb-6 italic">Siap-siap denger pantun paling receh dari sistem!</p>
+                    <button id="generatePantunBtn" class="btn btn-primary">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        Gas Pantun!
+                        <span id="pantunLoader" class="loader hidden"></span>
+                    </button>
+                </div>
+
+                <!-- Kamus Gaul Absurd -->
+                <div class="card">
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-4">Kamus Gaul Absurd (Biar Nggak Kudet)</h3>
+                    <div class="mb-4">
+                        <input type="text" id="gaulWordInput" placeholder="Ketik kata gaul di sini..." class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200" />
+                    </div>
+                    <p id="gaulDefinitionDisplay" class="text-lg text-gray-600 mb-6 italic">Cari tahu arti kata gaul yang bikin kamu garuk-garuk kepala!</p>
+                    <button id="getGaulDefinitionBtn" class="btn btn-primary">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18s-3.332.477-4.5 1.253"></path></svg>
+                        Cari Arti Absurd!
+                        <span id="gaulDefinitionLoader" class="loader hidden"></span>
+                    </button>
+                </div>
+
+                <!-- Generator Alasan Gabut Absurd -->
+                <div class="card">
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-4">Alasan Gabut Absurd (Biar Nggak Overthinking)</h3>
+                    <p id="absurdReasonDisplay" class="text-lg text-gray-600 mb-6 italic">Lagi gabut nggak jelas? Sistem kasih tahu alasannya yang absurd!</p>
+                    <button id="generateAbsurdReasonBtn" class="btn btn-primary">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9.247a4.5 4.5 0 00.952 1.787l-1.615 1.615a.5.5 0 00-.11.168l-2 5a.5.5 0 00.65.65l5-2a.5.5 0 00.168-.11l1.615-1.615a4.5 4.5 0 001.787.952M12 15a3 3 0 100-6 3 3 0 000 6z"></path></svg>
+                        Kenapa Gabut?
+                        <span id="absurdReasonLoader" class="loader hidden"></span>
+                    </button>
+                </div>
+
+                <!-- Generator Gombalan Receh -->
+                <div class="card">
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-4">Gombalan Receh (Bikin Salting)</h3>
+                    <p id="gombalanDisplay" class="text-lg text-gray-600 mb-6 italic">Siap-siap dapet gombalan receh yang bikin senyum-senyum sendiri!</p>
+                    <button id="generateGombalanBtn" class="btn btn-primary">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        Gas Gombal!
+                        <span id="gombalanLoader" class="loader hidden"></span>
+                    </button>
+                </div>
+
+                <!-- Generator Cerita Absurd Pendek -->
+                <div class="card">
+                    <h3 class="2xl font-semibold text-gray-700 mb-4">Cerita Absurd Pendek (Bikin Mikir Keras!)</h3>
+                    <div class="mb-4">
+                        <input type="text" id="storyKeywordsInput" placeholder="Ketik 1-2 kata kunci cerita (contoh: kucing, luar angkasa)..." class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200" />
+                    </div>
+                    <p id="absurdStoryDisplay" class="text-lg text-gray-600 mb-6 italic">Sistem akan menciptakan cerita paling absurd dari kata kuncimu!</p>
+                    <button id="generateAbsurdStoryBtn" class="btn btn-primary">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18s-3.332.477-4.5 1.253"></path></svg>
+                        Bikin Cerita Absurd!
+                        <span id="absurdStoryLoader" class="loader hidden"></span>
+                    </button>
+                </div>
+
+                <!-- Pemberi Nama Panggilan Kocak -->
+                <div class="card">
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-4">Nama Panggilan Kocak (Biar Makin Gaul!)</h3>
+                    <div class="mb-4">
+                        <input type="text" id="nicknameInput" placeholder="Ketik nama di sini..." class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200" />
+                    </div>
+                    <p id="nicknameDisplay" class="text-lg text-gray-600 mb-6 italic">Sistem akan memberimu nama panggilan paling kocak!</p>
+                    <button id="generateNicknameBtn" class="btn btn-primary">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h2a2 2 0 002-2V4a2 2 0 00-2-2h-2.5a.5.5 0 01-.5-.5V.5a.5.5 0 00-.5-.5h-3a.5.5 0 00-.5.5V1.5a.5.5 0 01-.5.5H5a2 2 0 00-2 2v14a2 2 0 002 2h2"></path></svg>
+                        Kasih Nama Kocak!
+                        <span id="nicknameLoader" class="loader hidden"></span>
+                    </button>
+                </div>
+
+                <!-- Penjawab Pertanyaan Random -->
+                <div class="card">
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-4">Penjawab Pertanyaan Random (Biar Nggak Gabut Mikir!)</h3>
+                    <div class="mb-4">
+                        <input type="text" id="randomQuestionInput" placeholder="Tanyakan apa saja yang absurd..." class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200" />
+                    </div>
+                    <p id="randomAnswerDisplay" class="text-lg text-gray-600 mb-6 italic">Sistem akan menjawab pertanyaan randommu dengan jawaban yang lebih random!</p>
+                    <button id="answerRandomQuestionBtn" class="btn btn-primary">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9.247a4.5 4.5 0 00.952 1.787l-1.615 1.615a.5.5 0 00-.11.168l-2 5a.5.5 0 00.65.65l5-2a.5.5 0 00.168-.11l1.615-1.615a4.5 4.5 0 001.787.952M12 15a3 3 0 100-6 3 3 0 000 6z"></path></svg>
+                        Jawab Random!
+                        <span id="randomAnswerLoader" class="loader hidden"></span>
+                    </button>
+                </div>
+
+                <!-- Meme Random -->
+                <div class="card text-center">
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-4">Meme Teks (Bikin Ngakak Tanpa Gambar!)</h3>
+                    <p class="text-lg text-gray-600 mb-4 italic">Klik tombol di bawah buat dapet meme teks random yang bikin ngakak!</p>
+                    <p id="memeCaption" class="text-lg text-gray-600 mb-6 italic">Caption meme akan muncul di sini.</p>
+                    <button id="generateMemeBtn" class="btn btn-primary">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        Gas Meme Teks!
+                    </button>
+                    <span id="memeLoader" class="loader hidden"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Hiburan Interaktif Ringan -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Hiburan Interaktif Ringan</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Mini Game "Clicker Gabut" -->
+                <div class="card text-center">
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-4">Mini Game: Clicker Gabut (Biar Nggak Mati Gaya)</h3>
+                    <p class="text-lg text-gray-600 mb-4">Klik tombol secepat mungkin dalam 10 detik! Jangan sampe kalah sama gabut!</p>
+                    <div class="flex-center gap-8 mb-6">
+                        <p class="text-4xl font-extrabold">Skor: <span id="clickScore" class="text-indigo-600">0</span></p>
+                        <p class="text-4xl font-extrabold">Waktu: <span id="clickTimer" class="text-orange-600">10</span>s</p>
+                    </div>
+                    <button id="clickMeBtn" class="btn btn-secondary text-4xl px-12 py-6" disabled>
+                        Gas Klik Aku!
+                    </button>
+                    <div class="mt-8 flex justify-center gap-5">
+                        <button id="startClickerBtn" class="btn btn-primary">Mulai Gabut Game!</button>
+                        <button id="resetClickerBtn" class="btn btn-danger" style="display: none;">Reset Gabut!</button>
+                    </div>
+                </div>
+
+                <!-- Tombol Panik! -->
+                <div class="card text-center">
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-4">Tombol Panik! (Atau Biar Nggak Overthinking)</h3>
+                    <p id="panicMessage" class="text-lg text-gray-600 mb-6 italic">Klik kalo gabutmu udah level dewa dan butuh distraction!</p>
+                    <button id="panicBtn" class="btn btn-danger text-4xl px-12 py-6">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        PANIK ABIS!
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="w-full max-w-4xl text-center mt-12 text-gray-600 text-base">
+        <p>&copy; 2025 IsengAja.com. Dibuat dengan gabut dan cinta oleh Andra Anak Kucay.</p>
+    </footer>
+
+    <!-- Custom Modal for Game Over -->
+    <div id="gameOverModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 class="text-3xl font-bold text-gray-800 mb-5">Waktu Habis, Bro! Gabutmu Terlalu Kuat!</h3>
+            <p id="finalScoreMessage" class="text-2xl text-gray-700 mb-8">Skor akhirmu: <span class="font-extrabold text-indigo-600">0</span>. Lumayan lah, daripada gabut doang!</p>
+            <button id="closeModalBtn" class="btn btn-primary">Tutup</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to add ripple effect to buttons
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                this.appendChild(ripple);
+
+                const diameter = Math.max(this.clientWidth, this.clientHeight);
+                const radius = diameter / 2;
+
+                ripple.style.width = ripple.style.height = `${diameter}px`;
+                ripple.style.left = `${e.clientX - this.getBoundingClientRect().left - radius}px`;
+                ripple.style.top = `${e.clientY - this.getBoundingClientRect().top - radius}px`;
+
+                ripple.onanimationend = () => {
+                    ripple.remove();
+                };
+            });
+        });
+
+        // Helper function to make Gemini API calls (for text generation)
+        async function callGeminiAPI(prompt, displayElement, loaderElement, buttonElement, errorMessage) {
+            // Only show loader and disable button if they are provided
+            if (loaderElement) loaderElement.classList.remove('hidden');
+            if (buttonElement) buttonElement.disabled = true;
+            if (displayElement) displayElement.textContent = "Sistem lagi mikir keras nih...";
+
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                const payload = { contents: chatHistory };
+                // ====================================================================================
+                // PENTING: Kunci API akan disuntikkan oleh lingkungan Canvas saat runtime.
+                // Anda tidak perlu memasukkan kunci API secara manual di sini.
+                // Jika Anda melihat error 403 (Forbidden), kemungkinan besar ada masalah dengan
+                // kunci API atau izinnya di lingkungan deployment Anda.
+                // ====================================================================================
+                const apiKey = ""; // Kunci API akan disuntikkan oleh lingkungan Canvas saat runtime.
+
+                // Gunakan __api_key jika tersedia dari lingkungan Canvas
+                const finalApiKey = typeof __api_key !== 'undefined' ? __api_key : apiKey;
+
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${finalApiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                // Check for HTTP errors (e.g., 400, 500)
+                if (!response.ok) {
+                    const errorBody = await response.text(); // Get raw error body
+                    console.error(`Panggilan API gagal dengan status ${response.status}: ${response.statusText}`, errorBody);
+                    if (response.status === 403) {
+                        if (displayElement) displayElement.textContent = `Error: 403 - Akses Ditolak. Pastikan kunci API Anda valid dan memiliki izin yang benar.`;
+                    } else {
+                        if (displayElement) displayElement.textContent = `Error: ${response.status} - ${response.statusText || 'Terjadi kesalahan.'}. Coba lagi nanti ya!`;
+                    }
+                    return null;
+                }
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    if (displayElement) displayElement.textContent = text;
+                    return text; // Return the generated text
+                } else {
+                    // Log the full unexpected response for debugging
+                    console.error("Struktur respons API tidak terduga untuk prompt:", prompt, "Respons Lengkap:", result);
+                    if (displayElement) displayElement.textContent = errorMessage; // Use the specific error message for the feature
+                    return null;
+                }
+            } catch (error) {
+                // Log the full network/fetch error for debugging
+                console.error("Error saat memanggil API (masalah jaringan/fetch) untuk prompt:", prompt, "Error:", error);
+                if (displayElement) displayElement.textContent = "Ada masalah koneksi atau server nih. Coba cek internetmu atau coba lagi nanti ya!";
+                return null;
+            } finally {
+                if (loaderElement) loaderElement.classList.add('hidden');
+                if (buttonElement) buttonElement.disabled = false;
+            }
+        }
+
+        // --- Random Fact Generator ---
+        const factDisplay = document.getElementById('factDisplay');
+        const generateFactBtn = document.getElementById('generateFactBtn');
+        const factLoader = document.getElementById('factLoader');
+
+        generateFactBtn.addEventListener('click', () => {
+            // Prompt untuk fakta receh, tanpa awalan
+            const prompt = "Hasilkan satu fakta acak yang sangat receh, absurd, dan bikin ngakak, tanpa awalan atau kalimat pengantar. Langsung saja fakta tersebut.";
+            callGeminiAPI(prompt, factDisplay, factLoader, generateFactBtn, "Gagal dapet fakta nih. Mungkin sistemnya lagi gabut. Coba lagi!");
+        });
+
+        // --- Random Word Generator ---
+        const wordDisplay = document.getElementById('wordDisplay');
+        const generateWordBtn = document.getElementById('generateWordBtn');
+        const wordLoader = document.getElementById('wordLoader');
+
+        generateWordBtn.addEventListener('click', () => {
+            // Prompt untuk kata gaul, tanpa awalan
+            const prompt = "Hasilkan satu kata gaul atau kata slang Indonesia yang paling absurd dan kocak, tanpa awalan atau kalimat pengantar. Langsung saja kata tersebut.";
+            callGeminiAPI(prompt, wordDisplay, wordLoader, generateWordBtn, "Gagal dapet kata nih. Mungkin sistemnya lagi buntu. Coba lagi!");
+        });
+
+        // --- Random Activity Generator ---
+        const activityDisplay = document.getElementById('activityDisplay');
+        const generateActivityBtn = document.getElementById('generateActivityBtn');
+        const activityLoader = document.getElementById('activityLoader');
+
+        generateActivityBtn.addEventListener('click', () => {
+            // Prompt untuk ide kegiatan, tanpa awalan
+            const prompt = "Hasilkan satu ide kegiatan yang sangat acak, unik, sedikit absurd, kocak, receh, dan bikin ngakak untuk dilakukan saat seseorang merasa gabut atau bosan. Gunakan bahasa gaul/nonformal ala anak Jaksel/Jaktim/Bekasi. Langsung saja ide tersebut, tanpa awalan atau kalimat pengantar. Contoh: 'Coba ajak bicara tanamanmu tentang masalah hidupmu, terus rekam ekspresi tanaman itu.'";
+            callGeminiAPI(prompt, activityDisplay, activityLoader, generateActivityBtn, "Gagal dapet ide nih. Mungkin sistemnya lagi ikutan gabut. Coba lagi!");
+        });
+
+        // --- Generator Ide Gabut Canggih ---
+        const llmIdeaDisplay = document.getElementById('llmIdeaDisplay');
+        const generateLlmIdeaBtn = document.getElementById('generateLlmIdeaBtn');
+        const llmIdeaLoader = document.getElementById('llmIdeaLoader');
+
+        generateLlmIdeaBtn.addEventListener('click', () => {
+            // Prompt untuk ide gabut, tanpa awalan
+            const prompt = "Hasilkan satu ide kegiatan yang sangat acak, unik, sedikit absurd, kocak, receh, dan bikin ngakak untuk dilakukan saat seseorang merasa gabut atau bosan. Gunakan bahasa gaul/nonformal ala anak Jaksel/Jaktim/Bekasi. Langsung saja ide tersebut, tanpa awalan atau kalimat pengantar. Contoh: 'Coba ajak bicara tanamanmu tentang masalah hidupmu, terus rekam ekspresi tanaman itu.'";
+            callGeminiAPI(prompt, llmIdeaDisplay, llmIdeaLoader, generateLlmIdeaBtn, "Gagal dapet ide nih. Mungkin sistemnya lagi ikutan gabut. Coba lagi, bro!");
+        });
+
+        // --- Generator Pantun Receh ---
+        const pantunDisplay = document.getElementById('pantunDisplay');
+        const generatePantunBtn = document.getElementById('generatePantunBtn');
+        const pantunLoader = document.getElementById('pantunLoader');
+
+        generatePantunBtn.addEventListener('click', () => {
+            // Prompt untuk pantun receh, tanpa awalan
+            const prompt = "Hasilkan satu pantun yang sangat receh, sedikit absurd, dan bikin senyum kecut atau ngakak. Gunakan bahasa gaul/nonformal ala anak Jaksel/Jaktim/Bekasi. Langsung saja pantun tersebut, tanpa awalan atau kalimat pengantar.";
+            callGeminiAPI(prompt, pantunDisplay, pantunLoader, generatePantunBtn, "Sistem lagi buntu pantun nih. Coba lagi, bestie!");
+        });
+
+        // --- Kamus Gaul Absurd ---
+        const gaulWordInput = document.getElementById('gaulWordInput');
+        const gaulDefinitionDisplay = document.getElementById('gaulDefinitionDisplay');
+        const getGaulDefinitionBtn = document.getElementById('getGaulDefinitionBtn');
+        const gaulDefinitionLoader = document.getElementById('gaulDefinitionLoader');
+
+        getGaulDefinitionBtn.addEventListener('click', () => {
+            const word = gaulWordInput.value.trim();
+            if (!word) {
+                gaulDefinitionDisplay.textContent = "Ketik dulu dong kata gaulnya, bestie!";
+                return;
+            }
+            // Prompt untuk definisi kata gaul, tanpa awalan
+            const prompt = `Hasilkan definisi yang sangat absurd, kocak, dan tidak masuk akal (tapi tetap relevan secara humor) untuk kata gaul/umum ini: "${word}". Gunakan bahasa gaul/nonformal ala anak Jaksel/Jaktim/Bekasi. Langsung saja definisinya, tanpa awalan atau kalimat pengantar.`;
+            callGeminiAPI(prompt, gaulDefinitionDisplay, gaulDefinitionLoader, getGaulDefinitionBtn, "Sistem gagal nemu definisi absurd. Mungkin kata ini terlalu normal. Coba kata lain!");
+        });
+
+        // --- Generator Alasan Gabut Absurd ---
+        const absurdReasonDisplay = document.getElementById('absurdReasonDisplay');
+        const generateAbsurdReasonBtn = document.getElementById('generateAbsurdReasonBtn');
+        const absurdReasonLoader = document.getElementById('absurdReasonLoader');
+
+        generateAbsurdReasonBtn.addEventListener('click', () => {
+            // Prompt untuk alasan gabut, tanpa awalan
+            const prompt = "Hasilkan satu alasan yang sangat absurd, random, dan bikin ngakak kenapa seseorang bisa merasa gabut atau bosan. Gunakan bahasa gaul/nonformal ala anak Jaksel/Jaktim/Bekasi. Langsung saja alasannya, tanpa awalan atau kalimat pengantar.";
+            callGeminiAPI(prompt, absurdReasonDisplay, absurdReasonLoader, generateAbsurdReasonBtn, "Sistem nggak nemu alasan gabut yang pas. Mungkin gabutmu terlalu misterius!");
+        });
+
+        // --- Generator Gombalan Receh ---
+        const gombalanDisplay = document.getElementById('gombalanDisplay');
+        const generateGombalanBtn = document.getElementById('generateGombalanBtn');
+        const gombalanLoader = document.getElementById('gombalanLoader');
+
+        generateGombalanBtn.addEventListener('click', () => {
+            // Prompt untuk gombalan receh, tanpa awalan
+            const prompt = "Hasilkan satu kalimat gombalan yang sangat receh, absurd, dan bikin ngakak. Gunakan bahasa gaul/nonformal ala anak Jaksel/Jaktim/Bekasi. Langsung saja gombalannya, tanpa awalan atau kalimat pengantar.";
+            callGeminiAPI(prompt, gombalanDisplay, gombalanLoader, generateGombalanBtn, "Sistem lagi nggak mood ngegombal nih. Coba lagi nanti ya!");
+        });
+
+        // --- Generator Cerita Absurd Pendek ---
+        const absurdStoryDisplay = document.getElementById('absurdStoryDisplay');
+        const generateAbsurdStoryBtn = document.getElementById('generateAbsurdStoryBtn');
+        const storyKeywordsInput = document.getElementById('storyKeywordsInput');
+        const absurdStoryLoader = document.getElementById('absurdStoryLoader');
+
+        generateAbsurdStoryBtn.addEventListener('click', () => {
+            const keywords = storyKeywordsInput.value.trim();
+            if (!keywords) {
+                absurdStoryDisplay.textContent = "Masukkan 1-2 kata kunci dulu dong buat ceritanya, bro!";
+                return;
+            }
+            // Prompt untuk cerita absurd, tanpa awalan
+            const prompt = `Buatkan satu cerita super pendek (maksimal 3 kalimat) yang sangat absurd, kocak, dan tidak masuk akal, menggunakan kata kunci: "${keywords}". Gunakan bahasa gaul/nonformal ala anak Jaksel/Jaktim/Bekasi. Langsung saja ceritanya, tanpa awalan atau kalimat pengantar.`;
+            callGeminiAPI(prompt, absurdStoryDisplay, absurdStoryLoader, generateAbsurdStoryBtn, "Gagal bikin cerita absurd nih. Mungkin sistemnya lagi kurang inspirasi. Coba lagi!");
+        });
+
+        // --- Pemberi Nama Panggilan Kocak ---
+        const nicknameDisplay = document.getElementById('nicknameDisplay');
+        const generateNicknameBtn = document.getElementById('generateNicknameBtn');
+        const nicknameInput = document.getElementById('nicknameInput');
+        const nicknameLoader = document.getElementById('nicknameLoader');
+
+        generateNicknameBtn.addEventListener('click', () => {
+            const name = nicknameInput.value.trim();
+            if (!name) {
+                nicknameDisplay.textContent = "Ketik nama dulu dong, biar bisa dikasih nama panggilan kocak!";
+                return;
+            }
+            // Prompt untuk nama panggilan, tanpa awalan
+            const prompt = `Berikan satu nama panggilan yang sangat kocak, unik, dan sedikit absurd untuk nama "${name}". Gunakan bahasa gaul/nonformal ala anak Jaksel/Jaktim/Bekasi. Langsung saja nama panggilannya, tanpa awalan atau kalimat pengantar.`;
+            callGeminiAPI(prompt, nicknameDisplay, nicknameLoader, generateNicknameBtn, "Gagal dapet nama panggilan kocak nih. Mungkin namamu terlalu serius. Coba lagi!");
+        });
+
+        // --- Penjawab Pertanyaan Random ---
+        const randomAnswerDisplay = document.getElementById('randomAnswerDisplay');
+        const answerRandomQuestionBtn = document.getElementById('answerRandomQuestionBtn');
+        const randomQuestionInput = document.getElementById('randomQuestionInput');
+        const randomAnswerLoader = document.getElementById('randomAnswerLoader');
+
+        answerRandomQuestionBtn.addEventListener('click', () => {
+            const question = randomQuestionInput.value.trim();
+            if (!question) {
+                randomAnswerDisplay.textContent = "Tanya apa aja dong, biar sistem bisa jawab random!";
+                return;
+            }
+            // Prompt untuk jawaban pertanyaan random, tanpa awalan
+            const prompt = `Jawab pertanyaan ini dengan jawaban yang sangat acak, absurd, tidak masuk akal, dan bikin ngakak: "${question}". Gunakan bahasa gaul/nonformal ala anak Jaksel/Jaktim/Bekasi. Langsung saja jawabannya, tanpa awalan atau kalimat pengantar.`;
+            callGeminiAPI(prompt, randomAnswerDisplay, randomAnswerLoader, answerRandomQuestionBtn, "Sistem lagi buntu jawaban nih. Mungkin pertanyaanmu terlalu normal. Coba lagi!");
+        });
+
+        // --- Meme Random (Text Only) ---
+        const generateMemeBtn = document.getElementById('generateMemeBtn');
+        const memeLoader = document.getElementById('memeLoader');
+        const memeCaptionDisplay = document.getElementById('memeCaption');
+
+        generateMemeBtn.addEventListener('click', async () => {
+            memeCaptionDisplay.textContent = "Sistem lagi mikir caption kocak..."; // Loading text for caption
+            memeLoader.classList.remove('hidden');
+            generateMemeBtn.disabled = true;
+
+            try {
+                // Only generate Indonesian meme caption using Gemini API
+                const captionPrompt = "Hasilkan satu kalimat caption meme yang sangat receh, absurd, dan bikin ngakak, dalam bahasa gaul/nonformal ala anak Jaksel/Jaktim/Bekasi. Langsung saja captionnya, tanpa awalan atau kalimat pengantar. Contoh: 'Ketika gabut level dewa, tapi kuota sekarat.' atau 'Muka pas liat notif dari mantan.'";
+                const generatedCaption = await callGeminiAPI(captionPrompt, null, null, null, "Gagal bikin caption meme.");
+
+                if (generatedCaption) {
+                    memeCaptionDisplay.textContent = generatedCaption;
+                } else {
+                    memeCaptionDisplay.textContent = "Gagal bikin caption meme nih. Coba lagi!";
+                }
+
+            } catch (error) {
+                memeCaptionDisplay.textContent = "Ada masalah koneksi nih. Coba cek internetmu, ya!";
+                console.error("Error fetching caption:", error);
+            } finally {
+                memeLoader.classList.add('hidden');
+                generateMemeBtn.disabled = false;
+            }
+        });
+
+
+        // --- Mini Game: Clicker Gabut ---
+        const clickMeBtn = document.getElementById('clickMeBtn');
+        const startClickerBtn = document.getElementById('startClickerBtn');
+        const resetClickerBtn = document.getElementById('resetClickerBtn');
+        const clickScoreDisplay = document.getElementById('clickScore');
+        const clickTimerDisplay = document.getElementById('clickTimer');
+        const gameOverModal = document.getElementById('gameOverModal');
+        const finalScoreMessage = document.getElementById('finalScoreMessage');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+        let score = 0;
+        let timer = 10;
+        let gameInterval;
+        let gameRunning = false;
+
+        function updateScore() {
+            score++;
+            clickScoreDisplay.textContent = score;
+        }
+
+        function startGame() {
+            if (gameRunning) return; // Prevent multiple starts
+            gameRunning = true;
+            score = 0;
+            timer = 10;
+            clickTimerDisplay.textContent = timer; // Changed to display timer initially
+            clickMeBtn.disabled = false;
+            startClickerBtn.style.display = 'none'; // Hide start button
+            resetClickerBtn.style.display = 'inline-flex'; // Show reset button as flex for proper styling
+
+            gameInterval = setInterval(() => {
+                timer--;
+                clickTimerDisplay.textContent = timer;
+                if (timer <= 0) {
+                    clearInterval(gameInterval);
+                    clickMeBtn.disabled = true;
+                    gameRunning = false;
+                    showModal(score); // Show custom modal instead of alert
+                }
+            }, 1000);
+        }
+
+        function resetGame() {
+            clearInterval(gameInterval);
+            gameRunning = false;
+            score = 0;
+            timer = 10;
+            clickScoreDisplay.textContent = score; // Reset score display
+            clickTimerDisplay.textContent = timer; // Reset timer display
+            clickMeBtn.disabled = true;
+            startClickerBtn.style.display = 'inline-flex'; // Show start button as flex for proper styling
+            resetClickerBtn.style.display = 'none'; // Hide reset button
+            gameOverModal.classList.remove('show'); // Hide modal if open
+        }
+
+        function showModal(finalScore) {
+            finalScoreMessage.innerHTML = `Skor akhirmu: <span class="font-extrabold text-indigo-600">${finalScore}</span>. Lumayan lah, daripada gabut doang!`;
+            gameOverModal.classList.add('show');
+        }
+
+        clickMeBtn.addEventListener('click', updateScore);
+        startClickerBtn.addEventListener('click', startGame);
+        resetClickerBtn.addEventListener('click', resetGame);
+        closeModalBtn.addEventListener('click', () => {
+            gameOverModal.classList.remove('show');
+            resetGame(); // Reset game state after closing modal
+        });
+        gameOverModal.addEventListener('click', (e) => { // Close modal if clicked outside content
+            if (e.target === gameOverModal) {
+                gameOverModal.classList.remove('show');
+                resetGame();
+            }
+        });
+
+
+        // --- Tombol Panik! ---
+        const panicBtn = document.getElementById('panicBtn');
+        const panicMessageDisplay = document.getElementById('panicMessage');
+        const body = document.body;
+
+        const panicMessages = [
+            "Santuy, kamu keren! Gabutmu cuma ilusi.",
+            "Jangan panik, ini cuma gabut, bro! Bukan akhir dunia.",
+            "Semua bakal fine-fine aja... hopefully. Kalo nggak, yaudah, gabut lagi.",
+            "Waktunya ngopi biar chill! Atau tidur, itu juga healing.",
+            "Lihat deh, warna ini aesthetic banget kan? Cocok buat background gabutmu.",
+            "Kamu nggak sendirian kok di kegabutan ini, we're in this together. Mari kita gabut berjamaah.",
+            "Udah, relax aja. Nggak usah overthinking.",
+            "Ini bukan simulasi, guys! Ini realita gabutmu.",
+            "Bip boop, gabut detected. Sistem sedang mencari solusi receh.",
+            "Selamatkan dirimu dari gabut, bestie! Klik lagi kalo kurang.",
+            "Gabutmu itu seni.",
+            "Jangan biarkan gabut menguasaimu! Lawan dengan klik tombol ini!",
+            "Kamu udah klik ini berkali-kali? Gabutmu parah banget, bro.",
+            "Mungkin gabut ini adalah takdir. Terima saja.",
+            "Kalo gabut, makan aja. Itu solusi paling simple.",
+            "Peringatan! Virus 'Mager' terdeteksi di sistemmu. Candaaaaaa!",
+            "Error 404: Mood ceria tidak ditemukan. Coba restart dirimu. Boongan!",
+            "Loading... kesabaranmu habis. Mohon tunggu sebentar. Ini cuma prank!",
+            "Selamat! Kamu memenangkan hadiah 'Gabut Seumur Hidup'. Maap, cuma halu.",
+            "Sistem mendeteksi kamu terlalu santuy. Segera bergerak! (Ini perintah, tapi becanda kok).",
+            "Notifikasi penting: Kamu terlalu tampan/cantik hari ini. Jangan kaget ya! (Ini fakta, tapi bisa jadi gombalan juga).",
+            "Waduh, koneksi ke dunia nyata terputus. Coba cek kabel otakmu. Hehe.",
+            "Kamu baru saja mengaktifkan mode 'Rebahan Abadi'. Selamat menikmati! (Tapi jangan keterusan ya).",
+            "Peringatan keras! Gabutmu sudah mencapai level 'Sultan Rebahan'. Hati-hati ketiduran.",
+            "Mohon maaf, aplikasi ini tidak bertanggung jawab atas tingkat kegabutanmu yang meningkat drastis. Ini semua salah kamu. Candaaa!",
+            "Kamu adalah prioritas utama kami... untuk digabutkan. Wkwkwk.",
+            "Sistem kami menyarankan kamu untuk... makan. Biar nggak gabut. Ini serius!",
+            "Selamat datang di dimensi 'Nggak Ngapa-ngapain'. Nikmati perjalanannya! (Tapi jangan nyasar).",
+            "Ada pesan rahasia untukmu: 'Jangan terlalu serius, hidup ini cuma mainan'.",
+            "Kamu sudah mencapai batas maksimal kegabutan hari ini. Silakan coba lagi besok. (Boongan, klik aja terus!).",
+            "Peringatan: Senyummu terlalu manis, bisa bikin diabetes. Canda, manisnya bikin gemes!",
+            "Deteksi: Kamu butuh piknik. Atau setidaknya, lihat langit sebentar. (Serius, ini bukan prank).",
+            "Error: Otakmu butuh refresh. Coba goyang-goyang kepala. (Jangan keras-keras ya).",
+            "Selamat! Kamu berhasil menemukan pesan tersembunyi ini. Hadiahnya... gabut lagi! Haha.",
+            "Kami sedang memproses data kegabutanmu. Hasilnya: Kamu juara gabut sedunia! (Selamat!).",
+            "Peringatan: Jangan terlalu banyak mikir, nanti pusing. Mending mikirin makan apa. (Ini saran tulus).",
+            "Sistem kami merekomendasikan: Tidur. Itu solusi terbaik untuk gabut. (Beneran!).",
+            "Kamu terlalu keren untuk gabut. Ayo, cari kegiatan! (Tapi kalo mager yaudah).",
+            "Notifikasi: Kamu adalah orang paling santuy yang pernah kami temui. Salut!",
+            "Ada pesan dari masa depan: Kamu masih gabut. (Ups, spoiler!).",
+            "Peringatan: Baterai semangatmu low. Segera cas dengan rebahan. (Power bank semangatmu mana?).",
+            "Kamu adalah master kegabutan. Gelar kehormatan ini diberikan khusus untukmu. (Bangga dong!).",
+            "Sistem kami mendeteksi kamu sedang mencari alasan untuk tidak melakukan apa-apa. Kami mendukungmu! (Tapi jangan sering-sering ya).",
+            "Peringatan: Jangan sampai gabutmu jadi virus menular. Sebarkan senyum aja. (Bukan gabutnya ya).",
+            "Kamu adalah pahlawan tanpa tanda jasa di dunia per-gabutan. Terima kasih sudah gabut dengan totalitas.",
+            "Ada pesan dari hatimu: 'Aku butuh hiburan!' Klik lagi aja.",
+            "Peringatan: Jangan terlalu lama menatap layar. Lihatlah keindahan gabut di sekitarmu. (Misalnya, debu di meja).",
+            "Kamu adalah definisi sempurna dari 'santuy abis'. Lanjutkan perjuanganmu!",
+            "Sistem kami sedang mencari jodoh yang cocok dengan tingkat kegabutanmu. Mohon bersabar. (Siapa tahu ketemu!).",
+            "Peringatan: Jangan lupa bernapas. Gabut kadang bikin lupa segalanya. (Termasuk napas).",
+            "Kamu adalah inspirasi bagi para kaum rebahan. Teruslah berkarya (dalam gabut).",
+            "Ada pesan dari dompetmu: 'Aku juga gabut, nggak ada isinya'. (Nah loh!).",
+            "Peringatan: Jangan terlalu banyak ketawa, nanti perutmu sakit. Canda, ketawa aja terus!",
+            "Sistem kami mendeteksi kamu sedang membutuhkan pelukan. (Virtual aja ya).",
+            "Kamu adalah bintang di kegelapan gabut. Bersinarlah terus!"
+        ];
+
+        const colors = [
+            '#E0F7FA', /* Light Cyan */
+            '#B3E5FC', /* Light Blue 100 */
+            '#81D4FA', /* Light Blue 300 */
+            '#4FC3F7', /* Light Blue 400 */
+            '#29B6F6', /* Light Blue 500 */
+            '#03A9F4', /* Light Blue 600 */
+            '#039BE5', /* Light Blue 700 */
+            '#0288D1', /* Light Blue 800 */
+            '#F5F5F5', /* Light Gray */
+            '#E0E0E0'  /* Gray 300 */
+        ];
+
+        panicBtn.addEventListener('click', () => {
+            // Change background color randomly
+            const randomColorIndex = Math.floor(Math.random() * colors.length);
+            // Apply gradient and the first pattern
+            body.style.background = `linear-gradient(to right bottom, ${colors[randomColorIndex]}, ${colors[(randomColorIndex + 1) % colors.length]})`;
+            body.style.backgroundImage = `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23B3E5FC' fill-opacity='0.2' fill-rule='evenodd'%3E%3Cpath d='M0 0h30v30H0V0zm30 30h30v30H30V30z'/%3E%3C/g%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2381D4FA' fill-opacity='0.25' fill-rule='evenodd'%3E%3Ccircle cx='20' cy='20' r='10'/%3E%3C/g%3E%3C/svg%3E")`;
+            body.style.backgroundRepeat = 'repeat, repeat';
+            body.style.backgroundPosition = '0 0, 10px 10px';
+
+
+            // Display random panic message
+            const randomMessageIndex = Math.floor(Math.random() * panicMessages.length);
+            panicMessageDisplay.textContent = panicMessages[randomMessageIndex];
+
+            // Add a temporary shake effect to the button
+            panicBtn.classList.add('animate-bounce'); // Tailwind's bounce animation
+            setTimeout(() => {
+                panicBtn.classList.remove('animate-bounce');
+                // Revert to original gradient and pattern after animation
+                body.style.background = 'linear-gradient(to right bottom, #E0F7FA, #BBDEFB)'; // Revert to new default gradient
+                body.style.backgroundImage = `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23B3E5FC' fill-opacity='0.2' fill-rule='evenodd'%3E%3Cpath d='M0 0h30v30H0V0zm30 30h30v30H30V30z'/%3E%3C/g%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2381D4FA' fill-opacity='0.25' fill-rule='evenodd'%3E%3Ccircle cx='20' cy='20' r='10'/%3E%3C/g%3E%3C/svg%3E")`;
+            body.style.backgroundRepeat = 'repeat, repeat';
+            body.style.backgroundPosition = '0 0, 10px 10px';
+            }, 600); // Match animation duration
+        });
+    </script>
+</body>
+</html>
